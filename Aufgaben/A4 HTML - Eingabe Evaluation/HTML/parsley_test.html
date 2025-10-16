@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parsley Form Example</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/parsleyjs@2.9.2/src/parsley.css">
+    <link rel="stylesheet" href="../CSS/parsley_style.css">
+</head>
+<body>
+<h1>Formular mit Parsley.js Validation</h1>
+
+<form id="myForm">
+    <label>Text: <input type="text" name="textInput" required data-parsley-length="[2,50]" placeholder="Gib Text ein"></label>
+    <label>Email: <input type="email" name="emailInput" required placeholder="example@mail.com"></label>
+    <label>Password: <input type="password" name="passwordInput" required data-parsley-minlength="6" placeholder="Passwort"></label>
+    <label>Tel: <input type="tel" name="telInput" required data-parsley-pattern="^\+?[0-9\s\-]{7,20}$" placeholder="123-456-7890"></label>
+    <label>URL: <input type="url" name="urlInput" required placeholder="https://example.com"></label>
+    <label>Search: <input type="search" name="searchInput" required placeholder="Suche etwas..."></label>
+    <button type="submit">Absenden</button>
+</form>
+
+<div id="output"></div>
+
+<!-- jQuery (Parsley benötigt jQuery) -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<!-- Parsley JS -->
+<script src="https://cdn.jsdelivr.net/npm/parsleyjs@2.9.2/dist/parsley.min.js"></script>
+<!-- Dein eigenes JS -->
+<script src="../Javascript/script.js"></script>
+</body>
+</html>

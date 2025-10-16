@@ -1,0 +1,24 @@
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 2rem;
+    line-height: 1.6;
+}
+form {
+    display: grid;
+    gap: 1rem;
+    max-width: 600px;
+}
+label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+input[type="range"] {
+    width: 200px;
+}
+input[type="submit"],
+input[type="reset"],
+input[type="button"] {
+    margin-top: 0.5rem;
+}
