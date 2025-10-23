@@ -27,4 +27,29 @@ $(document).ready(function() {
             alert('Formular erfolgreich validiert! Ready to send to server.');
         }
     });
+    window.Parsley.addValidator('filemaxsize', {
+        requirementType: 'integer',
+        validateString: function(value, maxSize, parsleyInstance) {
+            if (!window.FormData) return true; // Browser unterstützt FormData?
+            const files = parsleyInstance.$element[0].files;
+            if (files.length === 0) return true; // Keine Datei, Parsley prüft required
+            return files[0].size <= maxSize;
+        },
+        messages: {
+            en: 'Datei ist zu groß (max %s Bytes).'
+        }
+    });
+
+    window.Parsley.addValidator('filetype', {
+        requirementType: 'string',
+        validateString: function(value, type, parsleyInstance) {
+            const files = parsleyInstance.$element[0].files;
+            if (files.length === 0) return true;
+            const allowedTypes = type.split(',');
+            return allowedTypes.includes(files[0].type);
+        },
+        messages: {
+            en: 'Ungültiger Dateityp.'
+        }
+    });
 });
