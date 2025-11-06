@@ -24,6 +24,7 @@ $(document).ready(function() {
                  <p><strong>Tel:</strong> ${DOMPurify.sanitize(tel)}</p>
                  <p><strong>URL:</strong> ${DOMPurify.sanitize(url)}</p>
                  <p><strong>Search:</strong> ${DOMPurify.sanitize(search)}</p>`
+                    
                 );
 
                 alert('Formular erfolgreich validiert!');
