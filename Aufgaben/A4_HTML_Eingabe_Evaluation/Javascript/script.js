@@ -33,7 +33,7 @@ $(document).ready(function() {
             if (!window.FormData) return true; // Browser unterstützt FormData?
             const files = parsleyInstance.$element[0].files;
             if (files.length === 0) return true; // Keine Datei, Parsley prüft required
-            return files[0].size <= maxSize;
+            return files[0].size / 1024 / 1024 <= maxSize;
         },
         messages: {
             en: 'Datei ist zu groß (max %s Bytes).'
@@ -45,7 +45,7 @@ $(document).ready(function() {
         validateString: function(value, type, parsleyInstance) {
             const files = parsleyInstance.$element[0].files;
             if (files.length === 0) return true;
-            const allowedTypes = type.split(',');
+            const allowedTypes = type.split(',').map(t => t.trim().toLowerCase());
             return allowedTypes.includes(files[0].type);
         },
         messages: {
