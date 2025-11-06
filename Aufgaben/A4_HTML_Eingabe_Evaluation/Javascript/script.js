@@ -2,31 +2,35 @@ $(document).ready(function() {
     // Parsley auf das Formular anwenden
     $('#myForm').parsley();
 
-    // Event bei erfolgreichem Submit
-    $('#myForm').on('submit', function(e) {
-        e.preventDefault(); // Formular nicht automatisch senden
-        if ($(this).parsley().isValid()) {
-            // Alle Eingaben holen
-            const text = $('input[name="textInput"]').val();
-            const email = $('input[name="emailInput"]').val();
-            const password = $('input[name="passwordInput"]').val();
-            const tel = $('input[name="telInput"]').val();
-            const url = $('input[name="urlInput"]').val();
-            const search = $('input[name="searchInput"]').val();
+    $(document).ready(function() {
+        $('#myForm').parsley();
 
-            // Ausgabe sanitized in der Seite anzeigen
-            $('#output').html(
-                `<p><strong>Text:</strong> ${DOMPurify.sanitize(text)}</p>
+        $('#myForm').on('submit', function(e) {
+            e.preventDefault();
+            const form = $(this);
+
+            if (form.parsley().validate()) { // validate() triggers errors
+                const text = $('input[name="textInput"]').val();
+                const email = $('input[name="emailInput"]').val();
+                const password = $('input[name="passwordInput"]').val();
+                const tel = $('input[name="telInput"]').val();
+                const url = $('input[name="urlInput"]').val();
+                const search = $('input[name="searchInput"]').val();
+
+                $('#output').html(
+                    `<p><strong>Text:</strong> ${DOMPurify.sanitize(text)}</p>
                  <p><strong>Email:</strong> ${DOMPurify.sanitize(email)}</p>
                  <p><strong>Password:</strong> ${DOMPurify.sanitize(password)}</p>
                  <p><strong>Tel:</strong> ${DOMPurify.sanitize(tel)}</p>
                  <p><strong>URL:</strong> ${DOMPurify.sanitize(url)}</p>
                  <p><strong>Search:</strong> ${DOMPurify.sanitize(search)}</p>`
-            );
+                );
 
-            alert('Formular erfolgreich validiert! Ready to send to server.');
-        }
+                alert('Formular erfolgreich validiert!');
+            }
+        });
     });
+
     window.Parsley.addValidator('filemaxsize', {
         requirementType: 'integer',
         validateString: function(value, maxSize, parsleyInstance) {
@@ -45,11 +49,12 @@ $(document).ready(function() {
         validateString: function(value, type, parsleyInstance) {
             const files = parsleyInstance.$element[0].files;
             if (files.length === 0) return true;
-            const allowedTypes = type.split(',').map(t => t.trim().toLowerCase());
-            return allowedTypes.includes(files[0].type);
+            const allowedExtensions = type.split(',').map(t => t.trim().toLowerCase());
+            const fileExt = files[0].name.split('.').pop().toLowerCase();
+            return allowedExtensions.includes('.' + fileExt);
         },
         messages: {
-            en: 'Ungültiger Dateityp.'
+            en: 'Ungültiger Dateityp. Nur: %s erlaubt.'
         }
     });
 });
