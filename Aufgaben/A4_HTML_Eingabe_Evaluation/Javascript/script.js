@@ -24,7 +24,7 @@ $(document).ready(function() {
                  <p><strong>Tel:</strong> ${DOMPurify.sanitize(tel)}</p>
                  <p><strong>URL:</strong> ${DOMPurify.sanitize(url)}</p>
                  <p><strong>Search:</strong> ${DOMPurify.sanitize(search)}</p>`
-                    
+
                 );
 
                 alert('Formular erfolgreich validiert!');
@@ -41,7 +41,7 @@ $(document).ready(function() {
             return files[0].size / 1024 / 1024 <= maxSize;
         },
         messages: {
-            en: 'Datei ist zu groß (max %s Bytes).'
+            en: 'Datei ist zu groß (max %s MB).'
         }
     });
 
